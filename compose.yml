@@ -1,0 +1,36 @@
+version: '3'
+
+networks:
+  default:
+volumes:
+  database:
+
+services:
+  go-admin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: go-admin
+    container_name: go-admin
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - .:/app
+    networks:
+      - default
+
+  db:
+    image: postgres:13.3-alpine
+    restart: always
+    container_name: db
+    environment:
+      - PGDATA=/var/lib/postgresql/data/db-files/
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
+      - default
+
