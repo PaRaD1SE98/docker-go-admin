@@ -4,6 +4,7 @@ networks:
   default:
 volumes:
   database:
+  pg-admin-data:
 
 services:
   go-admin:
@@ -34,3 +35,15 @@ services:
     networks:
       - default
 
+  pg-admin:
+    image: dpage/pgadmin4:5.5
+    container_name: db_admin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    volumes:
+      - pg-admin-data:/var/lib/pgadmin
+    networks:
+      - default
