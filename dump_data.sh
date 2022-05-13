@@ -1,5 +1,5 @@
 #!/bin/bash
-DOCKER_COMPOSE_PREFIX="docker-go-admin"
+DOCKER_COMPOSE_PREFIX=$(basename "$PWD")
 NETWORK_NAME="default"
 DB_HOST="db"
 DB_USERNAME="postgres"
